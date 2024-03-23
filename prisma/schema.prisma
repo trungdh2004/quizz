@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model UserQuizz {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  userId String
+  username String
+  imageSrc String @default("/mascot.svg")
+  star Int @default(0)
+
+  lessonProgress LessonProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lesson {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  title String
+  imageSrc String?
+  isSystem Boolean @default(false)
+  userId String @db.ObjectId
+  slug String @unique
+
+  challenges Challenge[] 
+  lessonProgress LessonProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model Challenge {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  question String
+  audioSrc String?
+  lessonId String @db.ObjectId
+  lesson Lesson @relation(fields: [lessonId],references: [id],onDelete:Cascade)
+
+  challengeOption ChallengeOption[]
+  challengeProgress ChallengeProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ChallengeOption {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  text String
+  challengeId String @db.ObjectId
+  correct Boolean @default(false)
+
+  challenge Challenge @relation(fields: [challengeId],references: [id],onDelete:Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ChallengeProgress {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  challengeId String @db.ObjectId
+  lessonProgressId String @db.ObjectId
+  completed Boolean
+
+  challenge Challenge @relation(fields: [challengeId],references: [id],onDelete:Cascade)
+  lessonProgress LessonProgress @relation(fields: [lessonProgressId],references: [id],onDelete:Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([challengeId])
+}
+
+model LessonProgress {
+  id String @id @db.ObjectId @default(auto()) @map("_id")
+  name String
+  userId String @db.ObjectId
+  lessonId String @db.ObjectId
+
+  user UserQuizz @relation(fields: [userId],references: [id],onDelete:Cascade)
+  lesson Lesson @relation(fields: [lessonId],references: [id],onDelete:Cascade)
+
+  challengeProgress ChallengeProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
