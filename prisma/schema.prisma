@@ -25,12 +25,12 @@ model UserQuizz {
 
 model Lesson {
   id String @id @db.ObjectId @default(auto()) @map("_id")
-  title String
+  title String @default("Bài Quizz chưa có tên")
   imageSrc String?
   isSystem Boolean @default(false)
   userId String @db.ObjectId
   slug String @unique
-
+  isPublic Boolean @default(false)
   challenges Challenge[] 
   lessonProgress LessonProgress[]
 

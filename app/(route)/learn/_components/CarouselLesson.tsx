@@ -14,6 +14,7 @@ const CarouselLesson = ({ lessonSystems }: Props) => {
     <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
       {lessonSystems.map((lessonSystem) => (
         <LessonItem
+          id={lessonSystem.id}
           key={lessonSystem.id}
           title={lessonSystem.title}
           imageSrc={lessonSystem?.imageSrc}

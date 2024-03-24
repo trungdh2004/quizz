@@ -7,7 +7,7 @@ const LayoutLearn = ({ children }: { children: ReactNode }) => {
     <>
       <Nav />
       <Sidebar className="hidden lg:flex" />
-      <main className="lg:ml-[200px] h-full pt-[60px] mx-auto p-8">
+      <main className="lg:ml-[200px] min-h-screen  mx-auto p-4 pt-[60px] sm:p-8 sm:pt-[60px] bg-[#f2f2f2]">
         {children}
       </main>
     </>

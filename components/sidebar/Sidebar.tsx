@@ -1,8 +1,13 @@
-import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignOutButton,
+  UserButton,
+} from "@clerk/nextjs";
 import { Loader, LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { Button } from "../ui/button";
 import SidebarItem from "./SidebarItem";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -13,6 +18,8 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { getUserQuizz } from "@/action/action-userQuizz";
+import { redirect } from "next/navigation";
+import SidebarCreate from "./SidebarCreate";
 
 const routes = [
   {
@@ -77,16 +84,15 @@ const Sidebar = async ({ className }: Props) => {
       {/*  */}
       {/* them cau hỏi */}
 
-      <div className="w-full mt-4">
-        <Button
-          variant={"primary"}
-          className="w-full justify-center text-xl"
-          size={"lg"}
-        >
-          <IoAddCircleOutline className="w-5 h-5 mr-2 stroke-[5]" />
-          Tạo mới
-        </Button>
-      </div>
+      <Suspense
+        fallback={
+          <div className="w-full mt-4">
+            <Skeleton className="w-full h-11 rounded-md bg-slate-100" />
+          </div>
+        }
+      >
+        <SidebarCreate />
+      </Suspense>
 
       {/* item */}
       <div className="flex-1 flex-col flex gap-y-2 py-4">
@@ -106,9 +112,11 @@ const Sidebar = async ({ className }: Props) => {
           <Skeleton className="h-11 w-full rounded-md" />
         </ClerkLoading>
         <ClerkLoaded>
-          <Button variant={"danger"} className="w-full justify-start">
-            <LogOutIcon className="mr-2 w-5 h-5" /> Đăng xuất
-          </Button>
+          <SignOutButton>
+            <Button variant={"danger"} className="w-full justify-start">
+              <LogOutIcon className="mr-2 w-5 h-5" /> Đăng xuất
+            </Button>
+          </SignOutButton>
         </ClerkLoaded>
       </div>
     </div>
