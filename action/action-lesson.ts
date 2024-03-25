@@ -44,7 +44,28 @@ export const getLessonByIdAndChallenge = async (id: string) => {
             challengeOption: true,
           },
         },
-        
+      },
+    });
+
+    return lessonSystem;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getLessonByIdAndChallengeAndUserId = async (id: string) => {
+  try {
+    const lessonSystem = await db.lesson.findFirst({
+      where: {
+        id: id,
+      },
+      include: {
+        challenges: {
+          include: {
+            challengeOption: true,
+          },
+        },
+        userQuizz: true,
       },
     });
 

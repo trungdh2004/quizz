@@ -31,20 +31,9 @@ const CreateLessonModal = () => {
     <Dialog open={isOpen} onOpenChange={close}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <div className="flex items-center justify-center w-full mb-5">
-            <Image
-              src={"/mascot_sad.svg"}
-              alt="Mascot"
-              height={80}
-              width={80}
-            />
-          </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Bạn muốn thoát khỏi ?
+            Tạo câu hỏi
           </DialogTitle>
-          <DialogDescription className="text-center text-base">
-            Nếu bạn thoát khỏi bài học sẽ kêt thúc và bạn sẽ không thể tiếp tục
-          </DialogDescription>
         </DialogHeader>
 
         <DialogFooter className="mb-4">

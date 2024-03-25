@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import Modal from "@/components/modal/modal";
 
@@ -23,7 +23,7 @@ export default function RootLayout({
         <body className={font.className}>
           {children}
           <Modal />
-          <Toaster />
+          <Toaster position="top-right" richColors />
         </body>
       </ClerkProvider>
     </html>

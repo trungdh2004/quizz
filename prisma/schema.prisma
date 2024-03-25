@@ -18,6 +18,7 @@ model UserQuizz {
   star Int @default(0)
 
   lessonProgress LessonProgress[]
+  lesson Lesson[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -33,6 +34,8 @@ model Lesson {
   isPublic Boolean @default(false)
   challenges Challenge[] 
   lessonProgress LessonProgress[]
+
+  userQuizz UserQuizz @relation(fields: [userId],references: [id],onDelete:Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
