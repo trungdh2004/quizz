@@ -25,22 +25,26 @@ interface Props {
   setOpen: () => void;
   lessonId: string;
   setChallenges: (value: IChallenge) => void;
+  initialChallengeUpdate: any;
 }
 
 interface optionProp {
   [key: string]: string;
 }
 
-const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
+const FormUpdate = ({
+  open,
+  setOpen,
+  lessonId,
+  setChallenges,
+  initialChallengeUpdate,
+}: Props) => {
   const [pending, startTransition] = useTransition();
-  const [question, setQuestion] = useState("");
-  const [challengeOptions, setChallengeOptions] = useState<optionProp>({
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-  });
-  const [correct, setCorrect] = useState("");
+  const [question, setQuestion] = useState(initialChallengeUpdate.question);
+  const [challengeOptions, setChallengeOptions] = useState<optionProp>(
+    initialChallengeUpdate.options
+  );
+  const [correct, setCorrect] = useState(initialChallengeUpdate.correct);
 
   const onChangeQuestion = (value: string) => {
     setQuestion(value);
@@ -66,12 +70,16 @@ const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
     });
     startTransition(async () => {
       try {
-        const { data } = await axios.post("/api/challenge", {
-          question,
-          options,
-          lessonId: lessonId,
-        });
-        setChallenges(data.data);
+        const { data } = await axios.put(
+          `/api/challenge/${initialChallengeUpdate.id}`,
+          {
+            question,
+            options,
+            lessonId: lessonId,
+            optionId: initialChallengeUpdate.optionId,
+          }
+        );
+        setChallenges(data);
         setQuestion("");
         setCorrect("");
         setChallengeOptions({
@@ -100,7 +108,7 @@ const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-center font-bold text-2xl">
-            Tạo câu hỏi
+            Thay đổi câu hỏi
           </DialogTitle>
         </DialogHeader>
 
@@ -125,6 +133,7 @@ const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
               onValueChange={(value: string) => {
                 onChangeOptionRadio(value);
               }}
+              defaultValue={correct}
             >
               {Array.from([1, 2, 3, 4]).map((item) => (
                 <div className="flex items-center gap-1 w-full" key={item}>
@@ -169,4 +178,4 @@ const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
   );
 };
 
-export default FormAdd;
+export default FormUpdate;

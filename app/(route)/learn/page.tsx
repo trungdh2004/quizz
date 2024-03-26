@@ -5,7 +5,7 @@ import { auth, currentUser, useAuth } from "@clerk/nextjs";
 import { getAllLessonSystem } from "@/action/action-lesson";
 
 const Page = async () => {
-  // const lessonSystems = await getAllLessonSystem();
+  const lessonSystems = await getAllLessonSystem();
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Page = async () => {
           <FaStar className="w-8 h-8 text-yellow-400 mr-2" />
           <h4 className="text-xl font-bold">Bài tập khởi động</h4>
         </div>
-        {/* <CarouselLesson lessonSystems={lessonSystems} /> */}
+        <CarouselLesson lessonSystems={lessonSystems} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { getLessonByIdAndChallenge } from "@/action/action-lesson";
+import { getLessonByIdAndChallengeAndUserIdAndLessonProgress } from "@/action/action-lesson";
 import ListQuiz from "./_components/ListQuiz";
 import { redirect } from "next/navigation";
 
@@ -9,7 +9,9 @@ interface Props {
 }
 
 const PageQuizz = async ({ params }: Props) => {
-  const lesson = await getLessonByIdAndChallenge(params.lessonId);
+  const lesson = await getLessonByIdAndChallengeAndUserIdAndLessonProgress(
+    params.lessonId
+  );
 
   if (!lesson) {
     redirect("/learn");
