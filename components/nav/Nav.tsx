@@ -1,6 +1,5 @@
 import React from "react";
 import { IoMenu } from "react-icons/io5";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import SidebarMobile from "../sidebar/SidebarMobile";
 import DialogSlug from "./DialogSlug";

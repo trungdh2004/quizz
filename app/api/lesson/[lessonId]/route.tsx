@@ -1,6 +1,6 @@
 import { getUserQuizz } from "@/action/action-userQuizz";
 import { db } from "@/lib/db";
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function POST(

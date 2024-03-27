@@ -3,8 +3,6 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { IconType } from "react-icons";
-import { FaMapMarkedAlt } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
 interface SidebarItemProps {

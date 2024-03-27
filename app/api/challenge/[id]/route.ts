@@ -1,7 +1,4 @@
-import { create } from "zustand";
 import { db } from "@/lib/db";
-import { auth, currentUser } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
 
 export async function DELETE(
   req: Request,

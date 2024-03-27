@@ -5,7 +5,6 @@ import React from "react";
 import { MdOutlineFormatListBulleted } from "react-icons/md";
 import { PiBooksLight, PiGraduationCap } from "react-icons/pi";
 
-import { FaEllipsisVertical } from "react-icons/fa6";
 import { formatDistance } from "date-fns";
 import { vi } from "date-fns/locale";
 import { useRouter } from "next/navigation";

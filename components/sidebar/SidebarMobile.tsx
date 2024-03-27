@@ -1,13 +1,9 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Sidebar from "./Sidebar";
-import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   children: React.ReactNode;

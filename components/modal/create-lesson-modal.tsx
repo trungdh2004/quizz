@@ -1,13 +1,10 @@
 "use client";
-import { useExitModal } from "@/store/use-exit-modal";
 import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogOverlay,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";

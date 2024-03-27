@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { format, formatDistance } from "date-fns";
+import { formatDistance } from "date-fns";
 import { vi } from "date-fns/locale";
 import Image from "next/image";
 import React from "react";

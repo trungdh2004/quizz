@@ -1,10 +1,6 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { FaAngleLeft } from "react-icons/fa";
-import { MdOutlineFormatListBulleted } from "react-icons/md";
-import { PiBooksLight, PiGraduationCap } from "react-icons/pi";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import React, { useState, useTransition } from "react";
 import FormAdd from "./FormAdd";

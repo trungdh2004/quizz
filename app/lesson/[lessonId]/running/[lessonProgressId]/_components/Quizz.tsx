@@ -11,8 +11,6 @@ import Footer from "./Footer";
 import ChallengeOptionItem from "./ChallengeOption";
 import { useAudio } from "react-use";
 import { useToggleAudio } from "@/store/use-audio-quizz";
-import { createChallengeProgress } from "@/action/action-challengeProgress";
-import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 

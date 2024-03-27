@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { auth } from "@clerk/nextjs";
-import Image from "next/image";
 import BannerLeft from "./_components/BannerLeft";
-import axios from "axios";
 import FormCode from "./_components/FormCode";
 
 export default async function Home() {
