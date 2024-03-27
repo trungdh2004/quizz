@@ -13,7 +13,7 @@ const PageQuizzId = async ({
 }) => {
   const lesson = await getLessonById(params.lessonId);
 
-  if (!lesson) {
+  if (!lesson || !lesson.isPublic) {
     redirect("/learn");
   }
 

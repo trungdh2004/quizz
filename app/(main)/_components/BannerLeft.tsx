@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SignInButton, SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "sonner";
 
 interface Props {
   isLogin: boolean;
@@ -19,25 +20,31 @@ const BannerLeft = ({ isLogin }: Props) => {
     setIsLoading(true);
     if (userId) {
       (async () => {
-        console.log("test user");
-
-        await axios.post("/api/userQuizz");
+        try {
+          await axios.post("/api/userQuizz");
+        } catch (error) {
+          toast.error("Lôi server không thể truy cập");
+        }
       })();
     }
   }, [userId]);
 
   if (!isLoading) {
     return (
-      <Skeleton className="bg-slate-100 w-full lg:w-[50%] rounded-md h-[300px]" />
+      <div className=" w-full lg:w-[50%]">
+        <Skeleton className="bg-slate-100 rounded-md w-full h-20"></Skeleton>
+        <Skeleton className="bg-slate-100 rounded-md w-full h-20 mt-4"></Skeleton>
+        <Skeleton className="bg-slate-100 rounded-md w-[100px] h-12 mt-4"></Skeleton>
+      </div>
     );
   }
   return (
-    <div className="w-full lg:w-[50%] x x flex flex-col justify-start gap-y-8 h-full">
-      <h1 className="text-[55px] font-bold text-start">
-        <span className="text-[70px]">Q</span>uizz
+    <div className="w-full lg:w-[50%] x x flex flex-col justify-start gap-y-4 sm:gap-y-8 h-full">
+      <h1 className="text-[30px] sm:text-[55px] font-bold text-start">
+        <span className="text-[45px] sm:text-[70px]">Q</span>uizz
       </h1>
       <div>
-        <h4 className="text-3xl font-semibold">
+        <h4 className="text-xl sm:text-3xl font-semibold">
           Trang web cung cấp các bài tập <br />{" "}
           <p className="text-center flex justify-start">
             <span className="mr-1">môn </span>

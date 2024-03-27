@@ -1,54 +1,65 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import { format, formatDistance } from "date-fns";
-import { vi } from "date-fns/locale";
 import Image from "next/image";
 import React from "react";
 import { MdOutlineFormatListBulleted } from "react-icons/md";
 import { PiBooksLight, PiGraduationCap } from "react-icons/pi";
 
+import { FaEllipsisVertical } from "react-icons/fa6";
+import { formatDistance } from "date-fns";
+import { vi } from "date-fns/locale";
+import { useRouter } from "next/navigation";
+
 interface Props {
-  bgColor: string;
   title: string;
+  bgColor: string | null;
   countChallenge: number;
-  countLessonProgress: number;
   username: string;
   avatar: string;
   createdAt: any;
+  id: string;
 }
 
-const LessonReview = ({
-  bgColor,
+const LessonItem = ({
   title,
+  bgColor,
   countChallenge,
-  countLessonProgress,
   username,
   avatar,
   createdAt,
+  id,
 }: Props) => {
+  const router = useRouter();
+
+  const onCLick = (id: string) => {
+    router.push(`/my-library/${id}`);
+  };
+
   return (
-    <div className="h-80 bg-white w-full sticky top-[80px] rounded-md flex items-center p-4 hidden lg:block">
-      <div className="w-full h-full rounded-sm overflow-hidden flex flex-col">
+    <div
+      className="w-full p-2 rounded-md flex bg-white h-auto hover:bg-[#f9f9f9] cursor-pointer border"
+      onClick={() => onCLick(id)}
+    >
+      <div>
         <div
-          className="w-full h-[150px] bg-[#22dd41] flex items-center justify-center rounded-sm"
+          className="w-20 h-20 sm:w-[110px] sm:h-[110px] bg-sky-500 flex items-center justify-center rounded-sm"
           style={{
-            backgroundColor: bgColor || "#22dd41",
+            backgroundColor: bgColor || "#0ea5e9",
           }}
         >
-          <Image
-            src={"/logo_quizz.png"}
-            alt=""
-            width={80}
-            height={80}
-            className="object-cover"
-          />
+          <Image src="/logo_quizz.png" alt="lesson" width={60} height={60} />
         </div>
-
-        <div className="p-2 flex-1 w-full h-full flex flex-col justify-between">
+      </div>
+      <div className="w-full ml-2 flex-1 flex justify-between">
+        <div className=" flex-1 w-full flex flex-col justify-between">
           <div>
-            <Badge variant="outline">Quizz</Badge>
+            <Badge variant="outline" className="py-0.5 text-[10px]">
+              Quiz
+            </Badge>
           </div>
-          <div className="font-[800] w-full line-clamp-1">{title}</div>
+          <div className="w-full">
+            <h1 className="font-[800] w-full line-clamp-1">{title}</h1>
+          </div>
           <div className="w-full flex items-center text-sm">
             <div className="flex items-center mr-3">
               <MdOutlineFormatListBulleted className="w-[14px] h-[14px] mr-1" />
@@ -62,11 +73,6 @@ const LessonReview = ({
             <div>
               <PiBooksLight className="text-sm" />
             </div>
-          </div>
-          <div className="flex gap-1">
-            <span className="text-sm text-slate-500">
-              {countLessonProgress} lượt chơi
-            </span>
           </div>
           <div className="flex items-center">
             <div className="w-6 h-6 rounded-full overflow-hidden mr-3">
@@ -83,7 +89,9 @@ const LessonReview = ({
               <span>{username}</span>
               <span>*</span>
               <span>
-                {formatDistance(new Date(), createdAt, { locale: vi })}
+                {formatDistance(new Date(), createdAt, {
+                  locale: vi,
+                })}
               </span>
             </div>
           </div>
@@ -93,4 +101,4 @@ const LessonReview = ({
   );
 };
 
-export default LessonReview;
+export default LessonItem;

@@ -21,6 +21,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import FormUpdate from "./FormUpdate";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type IChallenge = Challenge & {
   challengeOption: ChallengeOption[];
@@ -49,7 +51,9 @@ type IOptions = {
 };
 
 const ListQuiz = ({ initialChallenges, initialLesson }: Props) => {
+  const router = useRouter();
   const [isDelete, startTransitionDelete] = useTransition();
+  const [isPublic, startTransitionPublic] = useTransition();
   const [isTitle, startTransitionTitle] = useTransition();
   const [open, setOpen] = useState(false);
   const [lesson] = useState(initialLesson);
@@ -145,6 +149,21 @@ const ListQuiz = ({ initialChallenges, initialLesson }: Props) => {
     setchallenges(updateChallenges);
   };
 
+  const handlePublic = (id: string) => {
+    startTransitionPublic(async () => {
+      try {
+        const { data } = await axios.put(`/api/lesson/${lesson.id}`, {
+          isPublic: true,
+        });
+        if (!data) toast.error("cập nhật thất bại");
+        toast.success("Cập nhập thành công");
+        router.push("/learn");
+      } catch (error) {
+        toast.error("cập nhật thất bại");
+      }
+    });
+  };
+
   return (
     <>
       <FormAdd
@@ -177,14 +196,26 @@ const ListQuiz = ({ initialChallenges, initialLesson }: Props) => {
         {/* header */}
         <div className="h-[56px] w-full border-b bg-white flex px-4 items-center justify-between sticky top-0 z-10">
           <div className="flex items-center">
-            <Button className="text-black mr-4" size={"sm"}>
-              <FaAngleLeft className="w-6 h-6" />
+            <Button className="text-black mr-4" size={"sm"} asChild>
+              <Link href="/my-library">
+                <FaAngleLeft className="w-6 h-6" />
+              </Link>
             </Button>
 
             <h3 className="font-bold hidden lg:block">{title}</h3>
           </div>
           <div>
-            <Button variant={"secondary"}>Xuất bản</Button>
+            <Button
+              variant={"secondary"}
+              onClick={() => handlePublic(lesson.id)}
+              disabled={isPublic || challenges.length === 0}
+            >
+              {isPublic ? (
+                <AiOutlineLoading3Quarters className="w-5 h-5 animate-spin" />
+              ) : (
+                "Xuất bản"
+              )}
+            </Button>
           </div>
         </div>
         {/* body */}
@@ -263,6 +294,7 @@ const ListQuiz = ({ initialChallenges, initialLesson }: Props) => {
             bgColor={lesson.imageSrc || ""}
             username={lesson.userQuizz.username}
             avatar={lesson.userQuizz.imageSrc}
+            createdAt={lesson.createdAt}
           />
         </div>
       </div>

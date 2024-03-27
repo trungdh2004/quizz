@@ -23,23 +23,13 @@ const LessonItem = ({
     <Link href={`/lesson/${id}`}>
       <div className="w-full rounded-md border overflow-hidden border-slate-200  cursor-pointer border-b-4 active:border-b bg-white">
         <div className="w-full h-40 bg-sky-500 flex items-center justify-center">
-          {imageSrc ? (
-            <Image
-              src={imageSrc}
-              alt="logoQuizz"
-              width={100}
-              height={100}
-              className="object-cover w-full h-full"
-            />
-          ) : (
-            <Image
-              src={"/logo_quizz.png"}
-              alt="logoQuizz"
-              width={100}
-              height={100}
-              className="object-cover"
-            />
-          )}
+          <Image
+            src={"/logo_quizz.png"}
+            alt="logoQuizz"
+            width={100}
+            height={100}
+            className="object-cover"
+          />
         </div>
         <div className="p-2 flex flex-col gap-y-1">
           <div>

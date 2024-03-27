@@ -1,3 +1,4 @@
+import { ChallengeProgress } from "@prisma/client";
 import { db } from "@/lib/db";
 import { getUserQuizz } from "./action-userQuizz";
 
@@ -69,7 +70,11 @@ export const getLessonByIdAndChallengeAndUserIdAndLessonProgress = async (
           },
         },
         userQuizz: true,
-        lessonProgress: true,
+        lessonProgress: {
+          include: {
+            challengeProgress: true,
+          },
+        },
       },
     });
 
@@ -96,5 +101,45 @@ export const getLessonByUserId = async () => {
     return lesson;
   } catch (error) {
     return [];
+  }
+};
+
+export const getLessonReport = async () => {
+  try {
+    const userQuizz = await getUserQuizz();
+
+    const lesson = await db.lesson.findMany({
+      where: {
+        userId: userQuizz?.id,
+      },
+      include: {
+        lessonProgress: {
+          include: {
+            challengeProgress: true,
+          },
+        },
+      },
+    });
+
+    return lesson;
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getLessonBySlug = async (slug: string) => {
+  try {
+    if (!slug) return null;
+
+    const lesson = await db.lesson.findFirst({
+      where: {
+        slug: slug,
+      },
+    });
+
+    if (!lesson) return null;
+    return lesson.id;
+  } catch (error) {
+    return null;
   }
 };

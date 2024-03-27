@@ -123,3 +123,52 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { lessonId: string } }
+) {
+  try {
+    const user = await getUserQuizz();
+
+    if (!params.lessonId || params.lessonId.length < 12) {
+      return Response.json(
+        { message: "Id lesson bạn bị lỗi" },
+        { status: 404 }
+      );
+    }
+
+    const lesson = await db.lesson.findFirst({
+      where: {
+        id: params.lessonId,
+      },
+    });
+
+    if (!lesson) {
+      return Response.json({ message: "khon co lop hoc " }, { status: 404 });
+    }
+
+    await db.lesson.delete({
+      where: {
+        id: params.lessonId,
+        userId: user?.id,
+      },
+    });
+
+    return Response.json(
+      { data: "success" },
+      {
+        status: 200,
+      }
+    );
+  } catch (error: any) {
+    console.log(error.message);
+
+    return NextResponse.json(
+      {
+        messgae: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}

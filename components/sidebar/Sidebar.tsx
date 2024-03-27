@@ -1,10 +1,5 @@
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignOutButton,
-  UserButton,
-} from "@clerk/nextjs";
-import { Loader, LogOutIcon } from "lucide-react";
+import { ClerkLoaded, ClerkLoading, SignOutButton } from "@clerk/nextjs";
+import { LogOutIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -13,12 +8,9 @@ import SidebarItem from "./SidebarItem";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { TbBooks } from "react-icons/tb";
 import { FaChartColumn } from "react-icons/fa6";
-import { IoSettingsSharp } from "react-icons/io5";
-import { IoAddCircleOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { getUserQuizz } from "@/action/action-userQuizz";
-import { redirect } from "next/navigation";
 import SidebarCreate from "./SidebarCreate";
 
 const routes = [
@@ -36,11 +28,6 @@ const routes = [
     label: "Báo cáo",
     icon: <FaChartColumn className="w-5 h-5 mr-2" />,
     href: "/report",
-  },
-  {
-    label: "Cài đặt",
-    icon: <IoSettingsSharp className="w-5 h-5 mr-2" />,
-    href: "/setting",
   },
 ];
 

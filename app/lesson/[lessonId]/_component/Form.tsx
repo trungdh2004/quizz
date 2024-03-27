@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useTransition } from "react";
 import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
+import { LuLoader2 } from "react-icons/lu";
 
 const formSchema = z.object({
   username: z
@@ -35,6 +35,7 @@ interface Props {
 }
 
 const FormName = ({ lessonId }: Props) => {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,16 +46,18 @@ const FormName = ({ lessonId }: Props) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const { data } = await axios.post(`/api/lesson/${lessonId}`, values);
+    startTransition(async () => {
+      try {
+        const { data } = await axios.post(`/api/lesson/${lessonId}`, values);
 
-      router.push(`/lesson/${lessonId}/running/${data.data.id}`);
-    } catch (error) {
-      toast({
-        title: "Server xảy ra lỗi mời bạn load lại trang web",
-        variant: "destructive",
-      });
-    }
+        router.push(`/lesson/${lessonId}/running/${data.data.id}`);
+      } catch (error) {
+        toast({
+          title: "Server xảy ra lỗi mời bạn load lại trang web",
+          variant: "destructive",
+        });
+      }
+    });
   }
 
   return (
@@ -82,8 +85,13 @@ const FormName = ({ lessonId }: Props) => {
           type="submit"
           variant={"secondary"}
           className="w-full sm:py-6 text-xl mt-4"
+          disabled={isPending}
         >
-          Submit
+          {isPending ? (
+            <LuLoader2 className="w-6 h-6 animate-spin" />
+          ) : (
+            "Tham gia"
+          )}
         </Button>
       </form>
     </Form>
