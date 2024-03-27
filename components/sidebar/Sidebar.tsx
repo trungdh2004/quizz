@@ -100,8 +100,10 @@ const Sidebar = async ({ className }: Props) => {
         </ClerkLoading>
         <ClerkLoaded>
           <SignOutButton>
-            <Button variant={"danger"} className="w-full justify-start">
-              <LogOutIcon className="mr-2 w-5 h-5" /> Đăng xuất
+            <Button variant={"danger"} className="w-full justify-start" asChild>
+              <Link href={"/"}>
+                <LogOutIcon className="mr-2 w-5 h-5" /> Đăng xuất
+              </Link>
             </Button>
           </SignOutButton>
         </ClerkLoaded>

@@ -1,11 +1,17 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import CarouselLesson from "./_components/CarouselLesson";
-import { auth, currentUser, useAuth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { getAllLessonSystem } from "@/action/action-lesson";
+import { redirect } from "next/navigation";
 
 const Page = async () => {
+  const { userId } = auth();
   const lessonSystems = await getAllLessonSystem();
+
+  if (!userId) {
+    redirect("/");
+  }
 
   return (
     <div>
