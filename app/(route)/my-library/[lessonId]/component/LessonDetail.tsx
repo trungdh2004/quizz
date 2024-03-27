@@ -46,7 +46,7 @@ const LessonDetail = ({
   const [pending, startTransition] = useTransition();
 
   const onCopyLink = (id: string) => {
-    navigator.clipboard.writeText(`${port}/lesson/${id}`);
+    navigator.clipboard.writeText(`${location.origin}/lesson/${id}`);
     toast.success("Đã copy link");
   };
 
