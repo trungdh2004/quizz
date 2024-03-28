@@ -6,7 +6,15 @@ import { NextResponse } from "next/server";
 
 export default authMiddleware({
   // Allow signed out users to access the specified routes:
-  publicRoutes: ["/", "/learn"],
+  publicRoutes: "/",
+
+  afterAuth(auth, req, evt) {
+    if (!auth.userId && req.nextUrl.pathname !== "/") {
+      const orgSelection = new URL("/", req.url);
+      return NextResponse.redirect(orgSelection);
+    }
+    return NextResponse.next();
+  },
 });
 
 export const config = {

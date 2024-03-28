@@ -3,6 +3,7 @@ import FormName from "./_component/Form";
 import ToggleAudio from "./_component/ToggleAudio";
 import { getLessonById } from "@/action/action-lesson";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 
 const PageQuizzId = async ({
   params,
@@ -11,7 +12,12 @@ const PageQuizzId = async ({
     lessonId: string;
   };
 }) => {
+  const { userId } = await auth();
   const lesson = await getLessonById(params.lessonId);
+
+  if (!userId) {
+    redirect("/");
+  }
 
   if (!lesson || !lesson.isPublic) {
     redirect("/learn");
