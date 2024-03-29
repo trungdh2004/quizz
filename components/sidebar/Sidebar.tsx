@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { getUserQuizz } from "@/action/action-userQuizz";
 import SidebarCreate from "./SidebarCreate";
+import DialogSlug from "../nav/DialogSlug";
 
 const routes = [
   {
@@ -74,13 +75,15 @@ const Sidebar = async ({ className }: Props) => {
       <Suspense
         fallback={
           <div className="w-full mt-4">
-            <Skeleton className="w-full h-11 rounded-md bg-slate-100" />
+            <Skeleton className="w-full h-10 rounded-md bg-slate-100" />
           </div>
         }
       >
         <SidebarCreate />
       </Suspense>
-
+      <div className="lg:hidden w-full mt-2">
+        <DialogSlug />
+      </div>
       {/* item */}
       <div className="flex-1 flex-col flex gap-y-2 py-4">
         {routes.map((route) => (

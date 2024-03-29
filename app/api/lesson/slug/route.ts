@@ -31,6 +31,16 @@ export async function POST(req: Request) {
         }
       );
 
+    if (!lesson.isPublic) {
+      return Response.json(
+        {
+          message: "Bài quizz chưa xuất bản",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
     return Response.json(lesson.id, {
       status: 200,
     });

@@ -149,16 +149,16 @@ const LessonDetail = ({
             <Image
               src={user.imageSrc || "/mascot.svg"}
               alt="avatar"
-              width={32}
-              height={32}
-              className="w-8 h-8 rounded-full mr-2 object-cover"
+              width={24}
+              height={24}
+              className="sm:w-8 sm:h-8 rounded-full mr-2 object-cover"
             ></Image>
-            <span className="text-sm font-medium">{user.username}</span>
+            <span className="text-xs sm:text-sm font-medium">{user.username}</span>
           </div>
 
           <Link href={`/quizz/${lesson.id}/edit`}>
-            <div className="h-8 px-3 flex items-center justify-center border rounded-sm text-sm text-black bg-[#0909090d] cursor-pointer">
-              <FaRegEdit className="mr-2 w-5 h-5 text-black" />
+            <div className="h-6 px-1 sm:h-8 sm:px-3 flex items-center justify-center border rounded-sm text-sm text-black bg-[#0909090d] cursor-pointer">
+              <FaRegEdit className="mr-2 w-4 h-4 sm:w-5 sm:h-5 text-black" />
               Chỉnh sửa
             </div>
           </Link>

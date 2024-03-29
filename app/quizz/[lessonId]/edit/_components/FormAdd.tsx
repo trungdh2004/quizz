@@ -133,7 +133,6 @@ const FormAdd = ({ open, setOpen, lessonId, setChallenges }: Props) => {
                   </div>
                   <div className="flex-1">
                     <textarea
-                      autoFocus
                       onChange={(e) =>
                         onChangeOption(e.target.value, `option${item}`)
                       }

@@ -17,7 +17,7 @@ const PageReport = async () => {
   const lessons = await getLessonReport();
 
   return (
-    <div className="w-full h-full p-4 lg:p-8 ">
+    <div className="w-full h-full py-4 sm:p-4 lg:p-8 ">
       <div className="flex items-center">
         <FaListUl className="text-slate-500 mr-2" />
         <h1 className="text-base font-bold text-slate-500">Báo cáo</h1>
@@ -30,9 +30,11 @@ const PageReport = async () => {
           </TableCaption>
           <TableHeader>
             <TableRow className="cursor-pointer">
-              <TableHead className="w-[50px]">Stt</TableHead>
-              <TableHead className="w-[100px]">Trạng thái</TableHead>
-              <TableHead>Tên Quizz</TableHead>
+              <TableHead className="w-[50px] max-sm:hidden">Stt</TableHead>
+              <TableHead className="w-[100px] max-sm:hidden">
+                Trạng thái
+              </TableHead>
+              <TableHead className="min-w-[200px]">Tên Quizz</TableHead>
               <TableHead className="w-[150px] text-center">
                 Tổng người tham gia
               </TableHead>

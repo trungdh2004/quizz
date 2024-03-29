@@ -8,6 +8,9 @@ export const getAllLessonSystem = async () => {
       where: {
         isSystem: true,
       },
+      orderBy: {
+        title: "asc",
+      },
       include: {
         challenges: true,
         lessonProgress: true,
@@ -63,6 +66,9 @@ export const getLessonByIdAndChallengeAndUserIdAndLessonProgress = async (
       where: {
         id: id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         challenges: {
           include: {
@@ -92,6 +98,9 @@ export const getLessonByUserId = async () => {
       where: {
         userId: userQuizz?.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         challenges: true,
         userQuizz: true,
@@ -111,6 +120,9 @@ export const getLessonReport = async () => {
     const lesson = await db.lesson.findMany({
       where: {
         userId: userQuizz?.id,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
       include: {
         lessonProgress: {

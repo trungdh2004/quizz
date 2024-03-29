@@ -31,6 +31,7 @@ const PageLessonProgressId = async ({ params }: Props) => {
       initialLessonId={lessonData.id}
       initialChallenges={lessonData.challenges}
       initialLessonProgress={lessonProgressData}
+      code={lessonData.slug}
     />
   );
 };

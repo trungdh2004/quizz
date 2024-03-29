@@ -6,6 +6,8 @@ import "react-circular-progressbar/dist/styles.css";
 import { ChallengeProgress, LessonProgress } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface Props {
   countLessonProgress: number;
@@ -55,12 +57,16 @@ const TableLesson = ({
     router.push(`/report/${id}`);
   };
 
+  const onCopy = (value: string) => {
+    navigator.clipboard.writeText(value);
+    toast.success("Đã copy mã quizz");
+  };
   return (
     <TableRow className="cursor-pointer">
-      <TableCell className="font-medium" onClick={onClick}>
+      <TableCell className="font-medium max-sm:hidden" onClick={onClick}>
         {index}
       </TableCell>
-      <TableCell className="font-medium" onClick={onClick}>
+      <TableCell className="font-medium max-sm:hidden" onClick={onClick}>
         <div
           className={cn(
             "p-1 bg-green-200 text-green-500 rounded-sm flex items-center justify-center text-center text-xs",
@@ -70,7 +76,14 @@ const TableLesson = ({
           {isPublic ? "Xuất bản" : "Chưa xuất bản"}
         </div>
       </TableCell>
-      <TableCell onClick={onClick}>{title}</TableCell>
+      <TableCell
+        onClick={onClick}
+        className={cn(
+          isPublic ? "max-sm:text-green-500" : "max-sm:text-rose-500"
+        )}
+      >
+        {title}
+      </TableCell>
       <TableCell className="text-center" onClick={onClick}>
         {countLessonProgress}
       </TableCell>
@@ -89,15 +102,25 @@ const TableLesson = ({
               trail: {
                 stroke: "#e5e7eb",
               },
+              text: {
+                // Text color
+                fontSize: "24px",
+              },
             }}
+            text={`${percentage}%`}
+            strokeWidth={4}
           ></CircularProgressbarWithChildren>
         </div>
-        <span className="text-black text-sm font-semibold ml-2">
+        <span className="text-black text-sm font-semibold ml-2 max-sm:hidden">
           {percentage}%
         </span>
       </TableCell>
 
-      <TableCell className="text-center">{codeLesson}</TableCell>
+      <TableCell className="text-center">
+        <Button className="w-full " onClick={() => onCopy(codeLesson)}>
+          {codeLesson}
+        </Button>
+      </TableCell>
     </TableRow>
   );
 };

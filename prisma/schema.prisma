@@ -17,7 +17,6 @@ model UserQuizz {
   imageSrc String @default("/mascot.svg")
   star Int @default(0)
 
-  lessonProgress LessonProgress[]
   lesson Lesson[]
 
   createdAt DateTime @default(now())
@@ -86,12 +85,9 @@ model ChallengeProgress {
 model LessonProgress {
   id String @id @db.ObjectId @default(auto()) @map("_id")
   name String
-  userId String @db.ObjectId
   lessonId String @db.ObjectId
 
-  user UserQuizz @relation(fields: [userId],references: [id],onDelete:Cascade)
   lesson Lesson @relation(fields: [lessonId],references: [id],onDelete:Cascade)
-
   challengeProgress ChallengeProgress[]
 
   createdAt DateTime @default(now())

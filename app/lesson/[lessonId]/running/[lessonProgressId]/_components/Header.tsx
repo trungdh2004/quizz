@@ -9,9 +9,10 @@ interface Props {
   onAudio: () => void;
   isAudio: boolean;
   percentage: number;
+  code: string;
 }
 
-const Header = ({ onAudio, isAudio, percentage }: Props) => {
+const Header = ({ onAudio, isAudio, percentage, code }: Props) => {
   const { open } = useExitModal();
 
   return (
@@ -33,7 +34,7 @@ const Header = ({ onAudio, isAudio, percentage }: Props) => {
           )}
         </Button>
         <div className="px-2.5 py-1.5 rounded-md text-xl font-semibold text-green-500 bg-[#ffffff1a]">
-          1234567
+          {code}
         </div>
       </div>
     </div>

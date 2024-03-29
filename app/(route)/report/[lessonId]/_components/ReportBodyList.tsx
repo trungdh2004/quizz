@@ -10,8 +10,6 @@ interface Props {
 }
 
 const ReportBodyList = ({ challenges, lessonProgress }: Props) => {
-  
-
   return (
     <div className=" bg-slate-100 overflow-hidden rounded-lg mt-4">
       <div className="p-4 w-full bg-white flex items-center justify-end">
@@ -38,6 +36,14 @@ const ReportBodyList = ({ challenges, lessonProgress }: Props) => {
             countChallenge={challenges.length}
           />
         ))}
+
+        {lessonProgress.length === 0 && (
+          <div className="w-full p-4 text-center">
+            <p className="text-base font-semibold">
+              Chưa có ai làm bài quizz !
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

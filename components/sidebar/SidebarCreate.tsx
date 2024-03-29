@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useTransition } from "react";
 import { Button } from "../ui/button";
 import { IoAddCircleOutline } from "react-icons/io5";
 import {
@@ -15,13 +15,13 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LuLoader2 } from "react-icons/lu";
 
 import { z } from "zod";
 import axios from "axios";
@@ -34,6 +34,7 @@ const formSchema = z.object({
 });
 
 const SidebarCreate = () => {
+  const [pending, startTrasition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,16 +45,17 @@ const SidebarCreate = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const { data } = await axios.post("/api/lesson", values);
-      console.log(data);
+    startTrasition(async () => {
+      try {
+        const { data } = await axios.post("/api/lesson", values);
 
-      router.push(`/quizz/${data.id}/edit`);
-    } catch (error) {
-      toast({
-        title: "Lỗi tạo lesson",
-      });
-    }
+        router.push(`/quizz/${data.id}/edit`);
+      } catch (error) {
+        toast({
+          title: "Lỗi tạo lesson",
+        });
+      }
+    });
   }
 
   return (
@@ -62,7 +64,7 @@ const SidebarCreate = () => {
         <DialogTrigger asChild>
           <Button
             variant={"primary"}
-            className="w-full justify-center text-xl"
+            className="w-full justify-center text-xl h-10"
             size={"lg"}
           >
             <IoAddCircleOutline className="w-5 h-5 mr-2 stroke-[5]" />
@@ -85,7 +87,11 @@ const SidebarCreate = () => {
                   <FormItem>
                     <FormLabel>Tên bài quizz</FormLabel>
                     <FormControl>
-                      <Input placeholder="shadcn" {...field} />
+                      <Input
+                        placeholder="shadcn"
+                        {...field}
+                        disabled={pending}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,6 +124,7 @@ const SidebarCreate = () => {
                           placeholder="shadcn"
                           {...field}
                           className="w-[50%]"
+                          disabled={pending}
                         />
                       </div>
                     </FormControl>
@@ -133,8 +140,13 @@ const SidebarCreate = () => {
                     variant={"primary"}
                     className="w-full"
                     size={"lg"}
+                    disabled={pending}
                   >
-                    Tạo bài quizz
+                    {pending ? (
+                      <LuLoader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      "Tạo bài quizz"
+                    )}
                   </Button>
                 </div>
               </DialogFooter>

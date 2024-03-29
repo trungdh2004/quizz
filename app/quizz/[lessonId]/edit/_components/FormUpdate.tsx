@@ -142,7 +142,6 @@ const FormUpdate = ({
                   </div>
                   <div className="flex-1">
                     <textarea
-                      autoFocus
                       onChange={(e) =>
                         onChangeOption(e.target.value, `option${item}`)
                       }
@@ -168,7 +167,7 @@ const FormUpdate = ({
               {pending ? (
                 <AiOutlineLoading3Quarters className="animate-spin text-white " />
               ) : (
-                "Tạo câu hỏi"
+                "Thay đổi"
               )}
             </Button>
           </div>

@@ -28,8 +28,6 @@ const FormCode = ({ userId }: Props) => {
         router.push(`/lesson/${data}`);
         return;
       } catch (error: any) {
-        console.log(error);
-
         toast.error(error.response.data.message);
       }
     });
@@ -46,7 +44,7 @@ const FormCode = ({ userId }: Props) => {
       />
       <Button
         variant={"primary"}
-        disabled={!userId || !code || pending}
+        disabled={!code || pending}
         className="cursor-pointer"
         onClick={onClick}
       >

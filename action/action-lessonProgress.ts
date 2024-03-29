@@ -14,7 +14,6 @@ export const getLessonProgressById = async (id: string) => {
         id,
       },
       include: {
-        user: true,
         challengeProgress: true,
       },
     });

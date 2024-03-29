@@ -74,20 +74,20 @@ const LessonItem = ({
             </div>
           </div>
           <div className="flex items-center">
-            <div className="w-6 h-6 rounded-full overflow-hidden mr-3">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden mr-3">
               <Image
                 src={avatar || "/mascot.svg"}
                 alt="avatar"
-                width={24}
-                height={24}
-                className="object-cover"
+                width={20}
+                height={20}
+                className="object-cover sm:w-6 sm:h-6"
               />
             </div>
 
             <div className="flex items-center text-xs text-slate-600 gap-1">
-              <span>{username}</span>
-              <span>*</span>
-              <span>
+              <span className="max-sm:text-[10px]">{username}</span>
+              <span className="max-sm:hidden">*</span>
+              <span className="max-sm:hidden">
                 {formatDistance(new Date(), createdAt, {
                   locale: vi,
                 })}

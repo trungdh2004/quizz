@@ -19,15 +19,15 @@ interface Props {
   initialChallenges: (Challenge & {
     challengeOption: ChallengeOption[];
   })[];
-  initialLessonProgress: LessonProgress & {
-    user: UserQuizz;
-  };
+  initialLessonProgress: LessonProgress;
+  code: string;
 }
 
 const Quizz = ({
   initialChallenges,
   initialLessonProgress,
   initialLessonId,
+  code,
 }: Props) => {
   const router = useRouter();
   const { isOpen, onChecked } = useToggleAudio();
@@ -111,7 +111,12 @@ const Quizz = ({
       {correctAudio}
       {wrongAudio}
       <div className="flex flex-col justify-between h-screen w-full">
-        <Header onAudio={onChecked} isAudio={isOpen} percentage={percentage} />
+        <Header
+          onAudio={onChecked}
+          isAudio={isOpen}
+          percentage={percentage}
+          code={code}
+        />
         <div className="flex-1 w-full p-2 ">
           <div className="h-full bg-[#57575757] rounded-md gap-4 grid grid-rows-2">
             {/* text-challenge */}

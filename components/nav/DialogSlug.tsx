@@ -20,7 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -51,9 +51,7 @@ const DialogSlug = () => {
         router.push(`/lesson/${data}`);
         return;
       } catch (error: any) {
-        console.log(error);
-
-        toast.error("Lỗi tìm kiếm");
+        toast.error(error.response.data.message);
       }
     });
   }
@@ -61,7 +59,7 @@ const DialogSlug = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="hidden sm:block" variant={"primary"} size={"sm"}>
+        <Button variant={"primary"} size={"sm"} className="max-lg:w-full h-10">
           Nhập mã
         </Button>
       </DialogTrigger>

@@ -152,8 +152,8 @@ const ListQuiz = ({ initialChallenges, initialLesson }: Props) => {
           isPublic: true,
         });
         if (!data) toast.error("cập nhật thất bại");
-        toast.success("Cập nhập thành công");
         router.push("/learn");
+        toast.success("Cập nhập thành công");
       } catch (error) {
         toast.error("cập nhật thất bại");
       }

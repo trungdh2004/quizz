@@ -23,7 +23,7 @@ const Footer = ({ onClick, disabled }: Props) => {
 
         <div className="relative flex items-center">
           <div className="px-4 py-2 rounded-md bg-[#ffffff24] text-white text-[18px] font-semibold">
-            Hello Đô Hữu Trung
+            Hello
           </div>
 
           <div className="absolute border-y-8 border-r-8 border-y-transparent border-r-[#ffffff24] -left-2"></div>
