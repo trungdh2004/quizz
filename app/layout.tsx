@@ -7,9 +7,31 @@ import Modal from "@/components/modal/modal";
 
 const font = Nunito({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Quizz",
-  description: "Làm bài tập quizz",
+export const metadata = {
+  title: "Quizz giao bài tập",
+  description: "Trang web giúp mọi người tạo các bài trắc nghiệm",
+  openGraph: {
+    title: "Quizz giao bài tập",
+    description: "Trang web giúp mọi người tạo các bài trắc nghiệm",
+    url: "https://quizz-fawn.vercel.app",
+    siteName: "Quizz.Js",
+    images: [
+      {
+        url: "/logo.svg", // Must be an absolute URL
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://quizz-fawn.vercel.app",
+    languages: {
+      "en-US": "/en-US",
+      "de-DE": "/de-DE",
+    },
+  },
 };
 
 export default function RootLayout({

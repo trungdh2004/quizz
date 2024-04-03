@@ -7,6 +7,7 @@ import { IoIosCloseCircle, IoIosCheckmarkCircle } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ConfettiPage from "./_components/Confetti";
+import { auth } from "@clerk/nextjs";
 
 interface Props {
   params: {
@@ -17,6 +18,7 @@ interface Props {
 
 const FinishPage = async ({ params }: Props) => {
   const { lessonId, lessonProgressId } = params;
+  const { userId } = await auth();
 
   const getLessonProgress = getLessonProgressById(lessonProgressId);
 
@@ -78,7 +80,7 @@ const FinishPage = async ({ params }: Props) => {
 
         <div className="w-full flex pt-4">
           <Button className="w-full text-xl h-12" variant={"secondary"} asChild>
-            <Link href={"/learn"}>Trở về</Link>
+            <Link href={userId ? "/learn" : "/"}>Trở về</Link>
           </Button>
         </div>
       </div>
