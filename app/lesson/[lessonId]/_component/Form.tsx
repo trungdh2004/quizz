@@ -68,10 +68,12 @@ const FormName = ({ lessonId }: Props) => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-slate-400">Username</FormLabel>
+              <FormLabel className="text-slate-400">
+                Tên người tham gia
+              </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Name..."
+                  placeholder="Tên..."
                   {...field}
                   className="sm:p-3 text-base sm:text-[20px] h-10 p-2 sm:h-[50px]"
                   spellCheck={false}
